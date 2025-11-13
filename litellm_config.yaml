@@ -1,0 +1,8 @@
+model_list:
+  - model_name: gemini-2.5-flash-lite # alias name
+    litellm_params:
+      model: gemini/gemini-2.5-flash-lite # provider supported name
+
+litellm_settings:
+  # Enable Arize Phoenix callbacks for local observability
+  callbacks: ["arize_phoenix"]
