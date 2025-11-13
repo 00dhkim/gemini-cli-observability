@@ -25,7 +25,7 @@ Gemini CLI 요청을 LiteLLM Proxy로 보내고, Proxy가 Google Gemini API로 �
 docker compose up -d
 ```
 
-### 2) gemini-cli 환경 적용
+### 2) gemini-cli 프록시 환경 적용
 
 ```bash
 source env.sh
