@@ -1,46 +1,48 @@
 # Gemini CLI Observability Hands On
 
-Gemini CLI 요청을 LiteLLM Proxy로 보내고, Proxy가 Google Gemini API로 트래픽을 전달하는 로컬 개발 환경입니다.
-요청/응답 로그는 Phoenix에서 확인할 수 있습니다.
+[한국어 README](README_ko.md)
 
-## 🚀 구성요소
+A local development environment that sends Gemini CLI requests to a LiteLLM Proxy, which then forwards traffic to the Google Gemini API.
+Request/response logs can be viewed in Phoenix.
 
-* **LiteLLM Proxy**: OpenAI 호환 프록시. Google Gemini로 라우팅.
-* **Phoenix**: LLM Observability UI.
-* **Postgres**: Proxy 메타데이터 저장.
-* **gemini-cli**: 개발자가 사용하는 CLI.
+## 🚀 Components
 
-## 📁 주요 파일
+* **LiteLLM Proxy**: OpenAI-compatible proxy that routes requests to Google Gemini.
+* **Phoenix**: LLM observability UI.
+* **Postgres**: Stores proxy metadata.
+* **gemini-cli**: CLI used by developers.
 
-* `docker-compose.yml` – Proxy / Phoenix / Postgres 실행
-* `litellm_config.yaml` – 모델 alias 및 실제 Gemini 모델 ID 설정
+## 📁 Key Files
+
+* `docker-compose.yml` – Runs Proxy / Phoenix / Postgres
+* `litellm_config.yaml` – Defines model aliases and actual Gemini model IDs
 * `.env` – Google API Key + Proxy Master Key
-* `env.sh` – gemini-cli 환경변수 세팅
+* `env.sh` – Environment variables for gemini-cli
 
-## ▶️ 실행 방법
+## ▶️ How to Run
 
-### 1) Google AI Studio에서 API Key 발급
+### 1) Generate an API Key from Google AI Studio
 
-- https://aistudio.google.com/api-keys 에서 발급받은 후.
-- `.env` 의 `GEMINI_API_KEY`에 입력
+* Go to [https://aistudio.google.com/api-keys](https://aistudio.google.com/api-keys)
+* Insert the key into `GEMINI_API_KEY` in `.env`
 
-### 2) 컨테이너 실행
+### 2) Start Containers
 
 ```bash
 docker compose up -d
 ```
 
-### 3) gemini-cli 프록시 환경 적용
+### 3) Apply gemini-cli Proxy Environment
 
 ```bash
 source env.sh
 ```
 
-### 4) 테스트
+### 4) Test
 
 ```bash
 gemini
-# /auth 들어간 뒤, sk-1234567890 입력 후 종료
+# Enter /auth, type sk-1234567890, then exit
 gemini --model="gemini-2.5-flash-lite" -p "hello"
 ```
 
@@ -49,7 +51,7 @@ gemini --model="gemini-2.5-flash-lite" -p "hello"
 Phoenix UI:
 👉 [http://localhost:6006](http://localhost:6006)
 
-## 🧪 Proxy 직접 호출 테스트
+## 🧪 Test Calling the Proxy Directly
 
 ```bash
 curl -X POST "http://localhost:4000/v1beta/models/gemini-2.5-flash-lite:generateContent" \
@@ -58,11 +60,11 @@ curl -X POST "http://localhost:4000/v1beta/models/gemini-2.5-flash-lite:generate
   -d '{"contents":[{"parts":[{"text":"hi"}],"role":"user"}]}'
 ```
 
-## ❗ 문제 발생 시
+## ❗ Troubleshooting
 
-* gemini-cli 모델명 ≠ `model_name` 이면 404/500 발생
-* `.env`의 GEMINI_API_KEY가 실제 Google 키인지 확인
-* LiteLLM 로그 확인
+* If the gemini-cli model name ≠ `model_name`, a 404/500 may occur.
+* Ensure `GEMINI_API_KEY` in `.env` is a valid Google API key.
+* Check LiteLLM logs:
 
   ```bash
   docker logs -f litellm
