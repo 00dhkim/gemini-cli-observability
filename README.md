@@ -19,19 +19,24 @@ Gemini CLI 요청을 LiteLLM Proxy로 보내고, Proxy가 Google Gemini API로 �
 
 ## ▶️ 실행 방법
 
-### 1) 컨테이너 실행
+### 1) Google AI Studio에서 API Key 발급
+
+- https://aistudio.google.com/api-keys 에서 발급받은 후.
+- `.env` 의 `GEMINI_API_KEY`에 입력
+
+### 2) 컨테이너 실행
 
 ```bash
 docker compose up -d
 ```
 
-### 2) gemini-cli 프록시 환경 적용
+### 3) gemini-cli 프록시 환경 적용
 
 ```bash
 source env.sh
 ```
 
-### 3) 테스트
+### 4) 테스트
 
 ```bash
 gemini
