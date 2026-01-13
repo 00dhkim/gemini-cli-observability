@@ -41,6 +41,9 @@ services:
       # PHOENIX_SQL_DATABASE_URL: "sqlite:///data/phoenix.db"
       PHOENIX_PORT: "6006"
       PHOENIX_GRPC_PORT: "4317"
+      PHOENIX_WORKING_DIR: "/mnt/data"
+    volumes:
+      - phoenix_data:/mnt/data
 
   db:
     image: postgres:16
@@ -78,3 +81,5 @@ volumes:
     # driver: local
   postgres_data:
     name: litellm_postgres_data # Named volume for Postgres data persistence
+  phoenix_data:
+    name: phoenix_data
