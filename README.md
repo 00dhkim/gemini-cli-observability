@@ -55,7 +55,7 @@ Phoenix UI:
 
 ```bash
 curl -X POST "http://localhost:4000/v1beta/models/gemini-2.5-flash-lite:generateContent" \
-  -H "Authorization: Bearer $GEMINI_API_KEY" \
+  -H "Authorization: Bearer sk-1234567890" \
   -H "Content-Type: application/json" \
   -d '{"contents":[{"parts":[{"text":"hi"}],"role":"user"}]}'
 ```
